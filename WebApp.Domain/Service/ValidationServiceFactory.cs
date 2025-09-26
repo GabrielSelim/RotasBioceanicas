@@ -16,9 +16,6 @@ namespace WebApp.Infrastructure.Services.Validation
             if (typeof(T) == typeof(LogEntry))
                 return (IEntityValidationService<T>)new LogsValidationService();
 
-            if (typeof(T) == typeof(TaxaJuros))
-                return (IEntityValidationService<T>)new TaxaJurosService();
-
             throw new NotImplementedException($"Serviço de validação não implementado para o tipo {typeof(T).Name}");
         }
     }
