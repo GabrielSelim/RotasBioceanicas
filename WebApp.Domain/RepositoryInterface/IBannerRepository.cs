@@ -5,6 +5,8 @@ namespace WebApp.Domain.RepositoryInterface
 {
     public interface IBannerRepository : IRepositoryBase<Banner>
     {
-
+        Task<List<Banner>> ListarAtivosOrdenadosAsync();
+        Task<Banner?> ObterPorOrdemAsync(int ordem);
+        Task<bool> AtivarOuDesativarAsync(long id, bool ativo);
     }
 }
