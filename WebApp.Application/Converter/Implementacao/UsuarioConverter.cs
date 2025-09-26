@@ -1,5 +1,5 @@
 ﻿using WebApp.Application.Converter.Contrato;
-using WebApp.Application.Dto;
+using WebApp.Application.Dto.Usuario;
 using WebApp.Domain.Entity;
 
 namespace WebApp.Application.Converter.Implementacao

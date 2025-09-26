@@ -1,6 +1,7 @@
 ﻿using WebApp.Application.BusinessInterface;
 using WebApp.Application.Converter.Implementacao;
 using WebApp.Application.Dto;
+using WebApp.Application.Dto.Usuario;
 using WebApp.Domain.RepositoryInterface;
 
 namespace WebApp.Application.Business

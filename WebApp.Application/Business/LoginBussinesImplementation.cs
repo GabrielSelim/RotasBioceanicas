@@ -5,6 +5,7 @@ using WebApp.Domain.ServiceInterface;
 using WebApp.Shared.Configurations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using WebApp.Application.Dto.Usuario;
 
 namespace WebApp.Bussines.Implementacoes
 {

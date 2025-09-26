@@ -29,10 +29,15 @@ namespace WebApp.Domain.Entity
         [StringLength(100)]
         public string Pais { get; set; }
 
-        [Column("city_state")]
-        [Required(ErrorMessage = "A Cidade/Estado é obrigatória.")]
+        [Column("city")]
+        [Required(ErrorMessage = "A Cidade é obrigatória.")]
         [StringLength(150)]
-        public string CidadeEstado { get; set; }
+        public string Cidade { get; set; }
+
+        [Column("state")]
+        [Required(ErrorMessage = "A Estado é obrigatória.")]
+        [StringLength(150)]
+        public string Estado { get; set; }
 
         [Column("phone_country_code")]
         [Required(ErrorMessage = "O DDI é obrigatório.")]

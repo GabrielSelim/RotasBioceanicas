@@ -28,14 +28,21 @@ namespace WebApp.Infrastructure.Services.Validation
 
             if (string.IsNullOrWhiteSpace(usuario.Pais))
                 throw new ValidationException("O campo 'País' é obrigatório.");
+
             if (usuario.Pais.Length > 100)
                 throw new ValidationException("O campo 'País' deve ter no máximo 100 caracteres.");
 
-            if (string.IsNullOrWhiteSpace(usuario.CidadeEstado))
-                throw new ValidationException("O campo 'Cidade/Estado' é obrigatório.");
+            if (string.IsNullOrWhiteSpace(usuario.Cidade))
+                throw new ValidationException("O campo 'Cidade' é obrigatório.");
 
-            if (usuario.CidadeEstado.Length > 150)
-                throw new ValidationException("O campo 'Cidade/Estado' deve ter no máximo 150 caracteres.");
+            if (usuario.Cidade.Length > 150)
+                throw new ValidationException("O campo 'Cidade' deve ter no máximo 150 caracteres.");
+
+            if (string.IsNullOrWhiteSpace(usuario.Estado))
+                throw new ValidationException("O campo 'Estado' é obrigatório.");
+
+            if (usuario.Estado.Length > 150)
+                throw new ValidationException("O campo 'Estado' deve ter no máximo 150 caracteres.");
 
             if (string.IsNullOrWhiteSpace(usuario.DDI))
                 throw new ValidationException("O campo 'DDI' é obrigatório.");
@@ -44,6 +51,7 @@ namespace WebApp.Infrastructure.Services.Validation
 
             if (string.IsNullOrWhiteSpace(usuario.TelefoneNumero))
                 throw new ValidationException("O campo 'Número de Telefone' é obrigatório.");
+
             if (usuario.TelefoneNumero.Length > 20)
                 throw new ValidationException("O campo 'Número de Telefone' deve ter no máximo 20 caracteres.");
 

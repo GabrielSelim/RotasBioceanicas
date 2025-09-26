@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Application.BusinessInterface;
 using WebApp.Application.Dto;
+using WebApp.Application.Dto.Usuario;
 using WebApp.Bussines;
 
 namespace WebApp.Controllers

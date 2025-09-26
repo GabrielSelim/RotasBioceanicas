@@ -1,4 +1,5 @@
 ﻿using WebApp.Application.Dto;
+using WebApp.Application.Dto.Usuario;
 
 namespace WebApp.Bussines
 {

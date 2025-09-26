@@ -19,6 +19,9 @@ namespace WebApp.Application.Extensions
         {
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IEntityValidationService<Usuario>, UsuarioValidationService>();
+            services.AddTransient<IEntityValidationService<Banner>, BannerValidationService>();
+            services.AddTransient<IEntityValidationService<Publicacao>, PublicacaoValidationService>();
+
 
             //Logs
             services.AddTransient<IEntityValidationService<LogEntry>, LogsValidationService>();
