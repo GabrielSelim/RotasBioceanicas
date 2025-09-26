@@ -16,7 +16,7 @@ namespace WebApp.Infrastructure.Repositorys
 
         public async Task<List<Publicacao>> ListarPublicadasAsync()
         {
-            return await _context.Set<Publicacao>()
+            return await _context.Publicacaoes
                 .Where(p => p.Publicado)
                 .OrderByDescending(p => p.DataPublicacao)
                 .ToListAsync();
@@ -24,7 +24,7 @@ namespace WebApp.Infrastructure.Repositorys
 
         public async Task<List<Publicacao>> ListarPorAutorAsync(int autorId)
         {
-            return await _context.Set<Publicacao>()
+            return await _context.Publicacaoes
                 .Where(p => p.AutorId == autorId)
                 .OrderByDescending(p => p.DataPublicacao)
                 .ToListAsync();
@@ -32,13 +32,12 @@ namespace WebApp.Infrastructure.Repositorys
 
         public async Task<Publicacao?> ObterPorTituloAsync(string titulo)
         {
-            return await _context.Set<Publicacao>()
-                .FirstOrDefaultAsync(p => p.Titulo == titulo);
+            return await _context.Publicacaoes.FirstOrDefaultAsync(p => p.Titulo == titulo);
         }
 
         public async Task<bool> AlterarStatusPublicacaoAsync(long id, bool publicado)
         {
-            var publicacao = await _context.Set<Publicacao>().FirstOrDefaultAsync(p => p.Id == id);
+            var publicacao = await _context.Publicacaoes.FirstOrDefaultAsync(p => p.Id == id);
             if (publicacao == null) return false;
             publicacao.Publicado = publicado;
             await _context.SaveChangesAsync();

@@ -17,7 +17,8 @@ namespace WebApp.Infrastructure.Repositorys
 
         public async Task<List<Banner>> ListarAtivosOrdenadosAsync()
         {
-            return await _context.Set<Banner>()
+
+            return await _context.Banners
                 .Where(b => b.Ativo)
                 .OrderByDescending(b => b.CriadoEm)
                 .ToListAsync();
@@ -25,13 +26,12 @@ namespace WebApp.Infrastructure.Repositorys
 
         public async Task<Banner?> ObterPorOrdemAsync(int ordem)
         {
-            return await _context.Set<Banner>()
-                .FirstOrDefaultAsync(b => b.Ordem == ordem);
+            return await _context.Banners.FirstOrDefaultAsync(b => b.Ordem == ordem);
         }
 
         public async Task<bool> AtivarOuDesativarAsync(long id, bool ativo)
         {
-            var banner = await _context.Set<Banner>().FirstOrDefaultAsync(b => b.Id == id);
+            var banner = await _context.Banners.FirstOrDefaultAsync(b => b.Id == id);
             if (banner == null) return false;
             banner.Ativo = ativo;
             await _context.SaveChangesAsync();
