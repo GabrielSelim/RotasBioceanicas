@@ -31,9 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <Folder Include="db\dataset\" />
-	  <Folder Include="db\migrations\" />
-    <Folder Include="UploadDir\" />
+    <Folder Include="UploadDir\Banner\" />
+    <Folder Include="UploadDir\Publicacao\" />
   </ItemGroup>
 
   <ItemGroup>
