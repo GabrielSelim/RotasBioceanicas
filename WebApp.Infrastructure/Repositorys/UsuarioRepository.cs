@@ -1,17 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using WebApp.Domain.Entity;
-using WebApp.Domain.Entity.Validations;
+﻿using WebApp.Domain.Entity;
 using WebApp.Domain.RepositoryInterface;
-using WebApp.Infrastructure.Services.Validation;
 using WebApp.Model.Context;
-using WebApp.Repository.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
 using System.Text;
+using WebApp.Infrastructure.Repositorys.Generic;
+using WebApp.Domain.Entity.Validations;
+using WebApp.Infrastructure.Services.Validation;
 
 namespace WebApp.Infrastructure.Repositorys
 {
-    public class UsuarioRepository : GenericRepository<Usuario>, IUsuarioRepository
+    public class UsuarioRepository : GenericRepositoryBase<Usuario>, IUsuarioRepository
     {
         private readonly MySQLContext _context;
 
@@ -20,50 +19,24 @@ namespace WebApp.Infrastructure.Repositorys
             _context = context;
         }
 
-        public Usuario ValidacaoCredencial(Usuario usuario)
+        public Usuario ValidacaoCredencial(string email, string senha)
         {
-            var senha = ComputeHash(usuario.Senha, SHA256.Create());
-
-            return _context.Usuarios.FirstOrDefault(u => (u.NomeUsuario == usuario.NomeUsuario) && (u.Senha == senha));
+            var senhaHash = ComputeHash(senha, SHA256.Create());
+            return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.SenhaHash == senhaHash);
         }
 
-        public Usuario ValidacaoCredencial(string usuarioNome)
+        public Usuario ObterPorEmail(string email)
         {
-            return _context.Usuarios.FirstOrDefault(u => (u.NomeUsuario == usuarioNome));
+            return _context.Usuarios.FirstOrDefault(u => u.Email == email);
         }
 
-        public bool RevokeToken(string usuarioNome)
+        public bool RevokeToken(string email)
         {
-            var usuario = _context.Usuarios.FirstOrDefault(u => (u.NomeUsuario == usuarioNome));
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
             if (usuario is null) return false;
             usuario.RefreshToken = null;
             _context.SaveChanges();
-
             return true;
-        }
-
-        public Usuario AtualizarInfoUsuario(Usuario usuario)
-        {
-            if (!Existe(usuario.Id)) return null;
-            {
-                var result = _context.Usuarios.FirstOrDefault(p => p.Id.Equals(usuario.Id));
-
-                if (result != null)
-                {
-                    try
-                    {
-                        _context.Entry(result).CurrentValues.SetValues(usuario);
-                        _context.SaveChanges();
-                        return usuario;
-                    }
-                    catch (Exception ex)
-                    {
-                        throw;
-                    }
-                }
-
-                return result;
-            }
         }
 
         private string ComputeHash(string input, HashAlgorithm hashAlgorithm)
@@ -85,40 +58,22 @@ namespace WebApp.Infrastructure.Repositorys
             return _context.Usuarios.Any(p => p.Id.Equals(id));
         }
 
-        public override Usuario Criar(Usuario usuario)
+        public override async Task<Usuario> CriarAsync(Usuario usuario)
         {
-            try
-            {
-                if (_context.Usuarios.Any(u => u.NomeUsuario == usuario.NomeUsuario))
-                {
-                    throw new ValidationException("Já existe um usuário cadastrado com este NomeUsuario.");
-                }
+            if (_context.Usuarios.Any(u => u.Email == usuario.Email))
+                throw new ValidationException("Já existe um usuário cadastrado com este e-mail.");
 
-                usuario.Senha = ComputeHash(usuario.Senha, SHA256.Create());
+            usuario.SenhaHash = ComputeHash(usuario.Senha, SHA256.Create());
 
-                if (usuario is IEntityValidator validator)
-                {
-                    validator.Validate();
-                }
-                else
-                {
-                    var validationService = ValidationServiceFactory.GetValidationService<Usuario>();
-                    validationService.Validate(usuario);
-                }
+            if (usuario is IEntityValidator validator)
+                validator.Validate();
+            else
+                ValidationServiceFactory.GetValidationService<Usuario>().Validate(usuario);
 
-                _context.Usuarios.Add(usuario);
-                _context.SaveChanges();
+            await _context.Usuarios.AddAsync(usuario);
+            await _context.SaveChangesAsync();
 
-                return usuario;
-            }
-            catch (ValidationException ex)
-            {
-                throw new ArgumentException(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Erro ao salvar o usuário no banco de dados.", ex);
-            }
+            return usuario;
         }
     }
 }

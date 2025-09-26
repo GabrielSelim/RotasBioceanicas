@@ -1,9 +1,10 @@
 ﻿using WebApp.Domain.Entity;
+using WebApp.Domain.Generic;
 using WebApp.Repository.Generic;
 
 namespace WebApp.Domain.RepositoryInterface
 {
-    public interface IUsuarioRepository : IRepository<Usuario>
+    public interface IUsuarioRepository : IRepositoryBase<Usuario>
     {
         Usuario ValidacaoCredencial(Usuario usuario);
 

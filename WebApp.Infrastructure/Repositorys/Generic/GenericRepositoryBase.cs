@@ -22,17 +22,7 @@ namespace WebApp.Infrastructure.Repositorys.Generic
             dataset = _context.Set<T>();
         }
 
-        public async Task<T> ObterPorIdAsync(long id)
-        {
-            return await dataset.FirstOrDefaultAsync(p => p.Id.Equals(id));
-        }
-
-        public async Task<List<T>> ObterTodosAsync()
-        {
-            return await dataset.ToListAsync();
-        }
-
-        public async Task<T> CriarAsync(T item)
+        public virtual async Task<T> CriarAsync(T item)
         {
             try
             {
@@ -60,7 +50,7 @@ namespace WebApp.Infrastructure.Repositorys.Generic
             }
         }
 
-        public async Task<T> AtualizarAsync(T item)
+        public virtual async Task<T> AtualizarAsync(T item)
         {
             if (!await ExisteAsync(item.Id))
                 throw new ArgumentException("A entidade com o ID especificado não existe.");
@@ -90,7 +80,7 @@ namespace WebApp.Infrastructure.Repositorys.Generic
             }
         }
 
-        public async Task DeletarAsync(long id)
+        public virtual async Task DeletarAsync(long id)
         {
             var result = await dataset.FirstOrDefaultAsync(p => p.Id.Equals(id));
 
@@ -112,6 +102,16 @@ namespace WebApp.Infrastructure.Repositorys.Generic
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<T> ObterPorIdAsync(long id)
+        {
+            return await dataset.FirstOrDefaultAsync(p => p.Id.Equals(id));
+        }
+
+        public async Task<List<T>> ObterTodosAsync()
+        {
+            return await dataset.ToListAsync();
         }
 
         public async Task<bool> ExisteAsync(long id)
