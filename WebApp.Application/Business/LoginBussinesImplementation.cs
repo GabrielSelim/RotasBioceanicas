@@ -5,7 +5,8 @@ using WebApp.Domain.ServiceInterface;
 using WebApp.Shared.Configurations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using WebApp.Application.Dto.Usuario;
+using WebApp.Application.Dto.UsuarioDto;
+using WebApp.Application.Converter.Implementacao.Usuario;
 
 namespace WebApp.Bussines.Implementacoes
 {
@@ -15,14 +16,16 @@ namespace WebApp.Bussines.Implementacoes
         private TokenConfiguration _configuration;
         private IUsuarioRepository _repository;
         private readonly ITokenService _tokenService;
-        //private readonly UsuarioConverter _converter;
+        private readonly ConverterLoginUsuario _converterLogin;
+        private readonly ConverterUsuarioRetorno _converterRetorno;
 
         public LoginBussinesImplementation(TokenConfiguration configuration, IUsuarioRepository repository, ITokenService tokenService)
         {
             _configuration = configuration;
             _repository = repository;
             _tokenService = tokenService;
-           // _converter = new UsuarioConverter();
+            _converterLogin = new ConverterLoginUsuario();
+            _converterRetorno = new ConverterUsuarioRetorno();
         }
 
         //public TokenDbo ValidarCredenciais(LoginUsuarioDbo usuarioDbo)
