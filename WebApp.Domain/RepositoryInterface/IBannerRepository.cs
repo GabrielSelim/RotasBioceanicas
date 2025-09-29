@@ -3,10 +3,10 @@ using WebApp.Domain.Generic;
 
 namespace WebApp.Domain.RepositoryInterface
 {
-    public interface IBannerRepository : IRepositoryBase<Banner>
+    public interface IBannerRepository : IRepositoryBase<Bannners>
     {
-        Task<List<Banner>> ListarAtivosOrdenadosAsync();
-        Task<Banner?> ObterPorOrdemAsync(int ordem);
+        Task<List<Bannners>> ListarAtivosOrdenadosAsync();
+        Task<Bannners?> ObterPorOrdemAsync(int ordem);
         Task<bool> AtivarOuDesativarAsync(long id, bool ativo);
     }
 }

@@ -1,11 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using WebApp.Domain.Entity.Base;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using WebApp.Domain.Entity.Base;
 
 namespace WebApp.Domain.Entity
 {
     [Table("banners")]
-    public class Banner : BaseEntity
+    public class Bannners : BaseEntity
     {
         [Column("image_url")]
         [Required(ErrorMessage = "A URL da imagem é obrigatória.")]

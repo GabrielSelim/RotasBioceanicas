@@ -4,9 +4,9 @@ using WebApp.Domain.ServiceInterface;
 
 namespace WebApp.Domain.Service
 {
-    public class BannerValidationService : IEntityValidationService<Banner>
+    public class BannerValidationService : IEntityValidationService<Bannners>
     {
-        public void Validate(Banner banner)
+        public void Validate(Bannners banner)
         {
             if (string.IsNullOrWhiteSpace(banner.ImagemUrl))
                 throw new ValidationException("A URL da imagem é obrigatória.");

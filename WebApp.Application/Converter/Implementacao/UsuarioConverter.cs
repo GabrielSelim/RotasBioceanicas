@@ -12,7 +12,7 @@ namespace WebApp.Application.Converter.Implementacao
 
             return new Usuario
             {
-                NomeUsuario = origem.NomeUsuario,
+                //NomeUsuario = origem.NomeUsuario,
                 Senha = origem.Senha,
                 NomeCompleto = origem.NomeCompleto,
                 RefreshToken = origem.RefreshToken,
@@ -26,7 +26,7 @@ namespace WebApp.Application.Converter.Implementacao
 
             return new UsuarioDbo
             {
-                NomeUsuario = origem.NomeUsuario,
+                //NomeUsuario = origem.NomeUsuario,
                 Senha = origem.Senha,
                 NomeCompleto = origem.NomeCompleto,
                 RefreshToken = origem.RefreshToken,

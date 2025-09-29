@@ -15,7 +15,7 @@ namespace WebApp.Model.Context
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Publicacao> Publicacaoes { get; set; }
-        public DbSet<Banner> Banners { get; set; }
+        public DbSet<Bannners> Banners { get; set; }
 
         //Logs
         public DbSet<LogEntry> Logs { get; set; }

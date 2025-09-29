@@ -5,7 +5,7 @@ namespace WebApp.Bussines
 {
     public interface ILoginBussines
     {
-        TokenDbo ValidarCredenciais(UsuarioDbo usuario);
+        TokenDbo ValidarCredenciais(LoginUsuarioDbo usuario);
 
         TokenDbo ValidarCredenciais(TokenDbo token);
 

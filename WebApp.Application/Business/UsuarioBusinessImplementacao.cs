@@ -27,7 +27,7 @@ namespace WebApp.Application.Business
                 if (string.IsNullOrWhiteSpace(usuario.NomeCompleto))
                     throw new ArgumentException("O nome completo não pode ser vazio ou nulo.");
 
-                if (string.IsNullOrWhiteSpace(usuario.NomeUsuario))
+                if (string.IsNullOrWhiteSpace(usuario.NomeCompleto))
                     throw new ArgumentException("O Nome do Usuário não pode ser vazio ou nulo.");
 
                 if (!System.Text.RegularExpressions.Regex.IsMatch(usuario.NomeCompleto, @"^[A-Za-zÀ-ÿ\s]+$"))
@@ -38,7 +38,7 @@ namespace WebApp.Application.Business
                 var usuarioDbo = new UsuarioDbo
                 {
                     NomeCompleto = usuario.NomeCompleto,
-                    NomeUsuario = usuario.NomeUsuario,
+                    NomeUsuario = usuario.NomeCompleto,
                     Senha = usuario.Senha
                 };
 
@@ -47,7 +47,7 @@ namespace WebApp.Application.Business
                 if (usuarioEntity == null)
                     throw new ArgumentException("Erro ao converter o usuário.");
 
-                _usuarioRepository.Criar(usuarioEntity);
+                _usuarioRepository.CriarAsync(usuarioEntity);
             }
             catch (ArgumentException ex)
             {

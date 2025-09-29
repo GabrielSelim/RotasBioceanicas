@@ -25,20 +25,20 @@ namespace WebApp.Bussines.Implementacoes
             _converter = new UsuarioConverter();
         }
 
-        public TokenDbo ValidarCredenciais(UsuarioDbo usuarioDbo)
+        public TokenDbo ValidarCredenciais(LoginUsuarioDbo usuarioDbo)
         {
             var usuarioEntity = _converter.Parse(usuarioDbo);
 
             if (usuarioEntity == null) return null;
 
-            var usuario = _repository.ValidacaoCredencial(usuarioEntity);
+            var usuario = _repository.ValidacaoCredencial(usuarioEntity.Email, usuarioEntity.Senha);
 
             if (usuario == null) return null;
 
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.NomeUsuario),
+                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.NomeCompleto),
                 new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
                 new Claim(ClaimTypes.GivenName, usuario.NomeCompleto),
                 new Claim(ClaimTypes.Role, usuario.Role)
@@ -50,7 +50,7 @@ namespace WebApp.Bussines.Implementacoes
             usuario.RefreshToken = refreshToken;
             usuario.RefreshTokenTempoExpiracao = DateTime.Now.AddMinutes(_configuration.DaysToExpiry);
 
-            _repository.AtualizarInfoUsuario(usuario);
+            _repository.AtualizarAsync(usuario);
 
             DateTime createDate = DateTime.Now;
             DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
@@ -65,36 +65,36 @@ namespace WebApp.Bussines.Implementacoes
             );
         }
 
-        public TokenDbo ValidarCredenciais(TokenDbo token)
-        {
-            var accessToken = token.AccessToken;
-            var refreshToken = token.RefreshToken;
+        //public TokenDbo ValidarCredenciais(TokenDbo token)
+        //{
+        //    var accessToken = token.AccessToken;
+        //    var refreshToken = token.RefreshToken;
 
-            var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
-            var nomeUsuario = principal.Identity.Name;
+        //    var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
+        //    var nomeUsuario = principal.Identity.Name;
 
-            var usuario = _repository.ValidacaoCredencial(nomeUsuario);
-            if (usuario == null || 
-                usuario.RefreshToken != refreshToken || 
-                usuario.RefreshTokenTempoExpiracao <= DateTime.Now) return null;
+        //    var usuario = _repository.ValidacaoCredencial(nomeUsuario);
+        //    if (usuario == null ||
+        //        usuario.RefreshToken != refreshToken ||
+        //        usuario.RefreshTokenTempoExpiracao <= DateTime.Now) return null;
 
-            accessToken = _tokenService.GenerateAccessToken(principal.Claims);
-            refreshToken = _tokenService.GenerateRefreshToken();
+        //    accessToken = _tokenService.GenerateAccessToken(principal.Claims);
+        //    refreshToken = _tokenService.GenerateRefreshToken();
 
-            usuario.RefreshToken = refreshToken;
+        //    usuario.RefreshToken = refreshToken;
 
-            DateTime createDate = DateTime.Now;
-            DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
+        //    DateTime createDate = DateTime.Now;
+        //    DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
 
-            return new TokenDbo(
-                accessToken, 
-                refreshToken, 
-                true, 
-                createDate.ToString(DATE_FORMAT), 
-                expirationDate.ToString(DATE_FORMAT), 
-                usuario.Role
-                );
-        }
+        //    return new TokenDbo(
+        //        accessToken,
+        //        refreshToken,
+        //        true,
+        //        createDate.ToString(DATE_FORMAT),
+        //        expirationDate.ToString(DATE_FORMAT),
+        //        usuario.Role
+        //        );
+        //}
 
         public bool RevokeToken(string usuarioNome)
         {

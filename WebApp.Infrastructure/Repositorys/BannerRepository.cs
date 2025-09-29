@@ -6,7 +6,7 @@ using WebApp.Model.Context;
 
 namespace WebApp.Infrastructure.Repositorys
 {
-    public class BannerRepository : GenericRepositoryBase<Banner>, IBannerRepository
+    public class BannerRepository : GenericRepositoryBase<Bannners>, IBannerRepository
     {
         private readonly MySQLContext _context;
 
@@ -15,7 +15,7 @@ namespace WebApp.Infrastructure.Repositorys
             _context = context;
         }
 
-        public async Task<List<Banner>> ListarAtivosOrdenadosAsync()
+        public async Task<List<Bannners>> ListarAtivosOrdenadosAsync()
         {
 
             return await _context.Banners
@@ -24,7 +24,7 @@ namespace WebApp.Infrastructure.Repositorys
                 .ToListAsync();
         }
 
-        public async Task<Banner?> ObterPorOrdemAsync(int ordem)
+        public async Task<Bannners?> ObterPorOrdemAsync(int ordem)
         {
             return await _context.Banners.FirstOrDefaultAsync(b => b.Ordem == ordem);
         }

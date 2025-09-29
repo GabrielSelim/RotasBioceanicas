@@ -67,7 +67,7 @@ namespace WebApp.Controllers
             {
                 _usuarioBussines.Criar(usuario);
 
-                return Ok($"Usuário {usuario.NomeUsuario} criado com sucesso.");
+                return Ok($"Usuário {usuario.NomeCompleto} criado com sucesso.");
             }
             catch (ArgumentException ex)
             {

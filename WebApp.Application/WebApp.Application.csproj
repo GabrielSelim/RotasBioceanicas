@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Hypermedia\Enricher\" />
+    <Folder Include="Converter\Implementacao\Usuario\" />
   </ItemGroup>
 
 </Project>
