@@ -15,55 +15,55 @@ namespace WebApp.Bussines.Implementacoes
         private TokenConfiguration _configuration;
         private IUsuarioRepository _repository;
         private readonly ITokenService _tokenService;
-        private readonly UsuarioConverter _converter;
+        //private readonly UsuarioConverter _converter;
 
         public LoginBussinesImplementation(TokenConfiguration configuration, IUsuarioRepository repository, ITokenService tokenService)
         {
             _configuration = configuration;
             _repository = repository;
             _tokenService = tokenService;
-            _converter = new UsuarioConverter();
+           // _converter = new UsuarioConverter();
         }
 
-        public TokenDbo ValidarCredenciais(LoginUsuarioDbo usuarioDbo)
-        {
-            var usuarioEntity = _converter.Parse(usuarioDbo);
+        //public TokenDbo ValidarCredenciais(LoginUsuarioDbo usuarioDbo)
+        //{
+        //    //var usuarioEntity = _converter.Parse(usuarioDbo);
 
-            if (usuarioEntity == null) return null;
+        //  //  if (usuarioEntity == null) return null;
 
-            var usuario = _repository.ValidacaoCredencial(usuarioEntity.Email, usuarioEntity.Senha);
+        //    //var usuario = _repository.ValidacaoCredencial(usuarioEntity.Email, usuarioEntity.Senha);
 
-            if (usuario == null) return null;
+        //    if (usuario == null) return null;
 
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
-                new Claim(JwtRegisteredClaimNames.UniqueName, usuario.NomeCompleto),
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
-                new Claim(ClaimTypes.GivenName, usuario.NomeCompleto),
-                new Claim(ClaimTypes.Role, usuario.Role)
-            };
+        //    var claims = new List<Claim>
+        //    {
+        //        new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString("N")),
+        //        new Claim(JwtRegisteredClaimNames.UniqueName, usuario.NomeCompleto),
+        //        new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
+        //        new Claim(ClaimTypes.GivenName, usuario.NomeCompleto),
+        //        new Claim(ClaimTypes.Role, usuario.Role)
+        //    };
 
-            var accessToken = _tokenService.GenerateAccessToken(claims);
-            var refreshToken = _tokenService.GenerateRefreshToken();
+        //    var accessToken = _tokenService.GenerateAccessToken(claims);
+        //    var refreshToken = _tokenService.GenerateRefreshToken();
 
-            usuario.RefreshToken = refreshToken;
-            usuario.RefreshTokenTempoExpiracao = DateTime.Now.AddMinutes(_configuration.DaysToExpiry);
+        //    usuario.RefreshToken = refreshToken;
+        //    usuario.RefreshTokenTempoExpiracao = DateTime.Now.AddMinutes(_configuration.DaysToExpiry);
 
-            _repository.AtualizarAsync(usuario);
+        //    _repository.AtualizarAsync(usuario);
 
-            DateTime createDate = DateTime.Now;
-            DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
+        //    DateTime createDate = DateTime.Now;
+        //    DateTime expirationDate = createDate.AddMinutes(_configuration.Minutes);
 
-            return new TokenDbo(
-                accessToken,
-                refreshToken,
-                true,
-                createDate.ToString(DATE_FORMAT),
-                expirationDate.ToString(DATE_FORMAT),
-                usuario.Role
-            );
-        }
+        //    return new TokenDbo(
+        //        accessToken,
+        //        refreshToken,
+        //        true,
+        //        createDate.ToString(DATE_FORMAT),
+        //        expirationDate.ToString(DATE_FORMAT),
+        //        usuario.Role
+        //    );
+        //}
 
         //public TokenDbo ValidarCredenciais(TokenDbo token)
         //{

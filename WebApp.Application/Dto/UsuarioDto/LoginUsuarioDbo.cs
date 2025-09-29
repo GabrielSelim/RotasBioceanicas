@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.Application.Dto.Usuario
+namespace WebApp.Application.Dto.UsuarioDto
 {
     public class LoginUsuarioDbo
     {

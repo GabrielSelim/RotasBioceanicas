@@ -9,12 +9,12 @@ namespace WebApp.Application.Business
     public class UsuarioBusinessImplementacao : IUsuarioBusiness
     {
         private readonly IUsuarioRepository _usuarioRepository;
-        private readonly UsuarioConverter _converter;
+        //private readonly UsuarioConverter _converter;
 
         public UsuarioBusinessImplementacao(IUsuarioRepository usuarioRepository)
         {
             _usuarioRepository = usuarioRepository;
-            _converter = new UsuarioConverter();
+            //_converter = new UsuarioConverter();
         }
 
         public void Criar(CriarUsuarioDbo usuario)
@@ -42,12 +42,12 @@ namespace WebApp.Application.Business
                     Senha = usuario.Senha
                 };
 
-                var usuarioEntity = _converter.Parse(usuarioDbo);
+                //var usuarioEntity = _converter.Parse(usuarioDbo);
 
-                if (usuarioEntity == null)
-                    throw new ArgumentException("Erro ao converter o usuário.");
+               // if (usuarioEntity == null)
+                 //   throw new ArgumentException("Erro ao converter o usuário.");
 
-                _usuarioRepository.CriarAsync(usuarioEntity);
+                //_usuarioRepository.CriarAsync(usuarioEntity);
             }
             catch (ArgumentException ex)
             {

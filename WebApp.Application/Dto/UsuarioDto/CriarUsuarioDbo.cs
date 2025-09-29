@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.Application.Dto.Usuario
+namespace WebApp.Application.Dto.UsuarioDto
 {
     public class CriarUsuarioDbo
     {
@@ -19,7 +19,11 @@ namespace WebApp.Application.Dto.Usuario
 
         [Required]
         [StringLength(150)]
-        public required string CidadeEstado { get; set; }
+        public required string Cidade { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public required string Estado { get; set; }
 
         [Required]
         [StringLength(5)]

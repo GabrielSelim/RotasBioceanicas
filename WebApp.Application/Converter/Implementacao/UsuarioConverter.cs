@@ -4,13 +4,13 @@ using WebApp.Domain.Entity;
 
 namespace WebApp.Application.Converter.Implementacao
 {
-    public class UsuarioConverter : IParser<UsuarioDbo, Usuario>, IParser<Usuario, UsuarioDbo>
+    public class UsuarioConverter : IParser<UsuarioDbo, CadastroUsuario>, IParser<CadastroUsuario, UsuarioDbo>
     {
-        public Usuario Parse(UsuarioDbo origem)
+        public CadastroUsuario Parse(UsuarioDbo origem)
         {
             if (origem == null) return null;
 
-            return new Usuario
+            return new CadastroUsuario
             {
                 //NomeUsuario = origem.NomeUsuario,
                 Senha = origem.Senha,
@@ -20,7 +20,7 @@ namespace WebApp.Application.Converter.Implementacao
             };
         }
 
-        public UsuarioDbo Parse(Usuario origem)
+        public UsuarioDbo Parse(CadastroUsuario origem)
         {
             if (origem == null) return null;
 
@@ -34,14 +34,14 @@ namespace WebApp.Application.Converter.Implementacao
             };
         }
 
-        public List<Usuario> ParseList(List<UsuarioDbo> origem)
+        public List<CadastroUsuario> ParseList(List<UsuarioDbo> origem)
         {
             if (origem == null) return null;
 
             return origem.Select(item => Parse(item)).ToList();
         }
 
-        public List<UsuarioDbo> ParseList(List<Usuario> origem)
+        public List<UsuarioDbo> ParseList(List<CadastroUsuario> origem)
         {
             if (origem == null) return null;
 

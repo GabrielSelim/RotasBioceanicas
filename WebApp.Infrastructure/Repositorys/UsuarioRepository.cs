@@ -10,7 +10,7 @@ using WebApp.Infrastructure.Services.Validation;
 
 namespace WebApp.Infrastructure.Repositorys
 {
-    public class UsuarioRepository : GenericRepositoryBase<Usuario>, IUsuarioRepository
+    public class UsuarioRepository : GenericRepositoryBase<CadastroUsuario>, IUsuarioRepository
     {
         private readonly MySQLContext _context;
 
@@ -19,13 +19,13 @@ namespace WebApp.Infrastructure.Repositorys
             _context = context;
         }
 
-        public Usuario ValidacaoCredencial(string email, string senha)
+        public CadastroUsuario ValidacaoCredencial(string email, string senha)
         {
             var senhaHash = ComputeHash(senha, SHA256.Create());
             return _context.Usuarios.FirstOrDefault(u => u.Email == email && u.SenhaHash == senhaHash);
         }
 
-        public Usuario ObterPorEmail(string email)
+        public CadastroUsuario ObterPorEmail(string email)
         {
             return _context.Usuarios.FirstOrDefault(u => u.Email == email);
         }
@@ -58,7 +58,7 @@ namespace WebApp.Infrastructure.Repositorys
             return _context.Usuarios.Any(p => p.Id.Equals(id));
         }
 
-        public override async Task<Usuario> CriarAsync(Usuario usuario)
+        public override async Task<CadastroUsuario> CriarAsync(CadastroUsuario usuario)
         {
             if (_context.Usuarios.Any(u => u.Email == usuario.Email))
                 throw new ValidationException("Já existe um usuário cadastrado com este e-mail.");
@@ -68,7 +68,7 @@ namespace WebApp.Infrastructure.Repositorys
             if (usuario is IEntityValidator validator)
                 validator.Validate();
             else
-                ValidationServiceFactory.GetValidationService<Usuario>().Validate(usuario);
+                ValidationServiceFactory.GetValidationService<CadastroUsuario>().Validate(usuario);
 
             await _context.Usuarios.AddAsync(usuario);
             await _context.SaveChangesAsync();

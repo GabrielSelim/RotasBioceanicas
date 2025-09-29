@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WebApp.Infrastructure.Services.Validation
 {
-    public class UsuarioValidationService : IEntityValidationService<Usuario>
+    public class UsuarioValidationService : IEntityValidationService<CadastroUsuario>
     {
-        public void Validate(Usuario usuario)
+        public void Validate(CadastroUsuario usuario)
         {
             if (string.IsNullOrWhiteSpace(usuario.NomeCompleto))
                 throw new ValidationException("O campo 'Nome Completo' é obrigatório.");

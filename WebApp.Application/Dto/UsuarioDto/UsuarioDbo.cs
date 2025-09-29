@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace WebApp.Application.Dto.Usuario
+namespace WebApp.Application.Dto.UsuarioDto
 {
     public class UsuarioDbo 
     {

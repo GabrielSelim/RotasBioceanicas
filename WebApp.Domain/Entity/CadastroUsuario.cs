@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace WebApp.Domain.Entity
 {
     [Table("usuarios")]
-    public class Usuario : BaseEntity
+    public class CadastroUsuario : BaseEntity
     {
         #region Informações Pessoais e Contato
 

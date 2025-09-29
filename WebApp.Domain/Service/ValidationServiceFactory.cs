@@ -10,13 +10,13 @@ namespace WebApp.Infrastructure.Services.Validation
     {
         public static IEntityValidationService<T> GetValidationService<T>()
         {
-            if (typeof(T) == typeof(Usuario))
+            if (typeof(T) == typeof(CadastroUsuario))
                 return (IEntityValidationService<T>)new UsuarioValidationService();
 
             if (typeof(T) == typeof(LogEntry))
                 return (IEntityValidationService<T>)new LogsValidationService();
 
-            if (typeof(T) == typeof(Banner))
+            if (typeof(T) == typeof(Bannners))
                 return (IEntityValidationService<T>)new BannerValidationService();
 
             if (typeof(T) == typeof(Publicacao))

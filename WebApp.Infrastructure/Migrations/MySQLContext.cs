@@ -13,9 +13,9 @@ namespace WebApp.Model.Context
 
         public MySQLContext(DbContextOptions<MySQLContext> options) : base(options){}
 
-        public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Publicacao> Publicacaoes { get; set; }
         public DbSet<Bannners> Banners { get; set; }
+        public DbSet<CadastroUsuario> Usuarios { get; set; }
 
         //Logs
         public DbSet<LogEntry> Logs { get; set; }

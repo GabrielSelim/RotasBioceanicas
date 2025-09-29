@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebApp.Application.Dto.Usuario
+namespace WebApp.Application.Dto.UsuarioDto
 {
-    public class CriarBannerDbo
+    public class AtualizarUsuarioDto
     {
         [StringLength(20)]
         public string? Documento { get; set; }

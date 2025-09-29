@@ -19,8 +19,4 @@
     <ProjectReference Include="..\WebApp.Shared\WebApp.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Converter\Implementacao\Usuario\" />
-  </ItemGroup>
-
 </Project>

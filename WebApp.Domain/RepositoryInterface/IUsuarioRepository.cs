@@ -3,11 +3,11 @@ using WebApp.Domain.Generic;
 
 namespace WebApp.Domain.RepositoryInterface
 {
-    public interface IUsuarioRepository : IRepositoryBase<Usuario>
+    public interface IUsuarioRepository : IRepositoryBase<CadastroUsuario>
     {
-        Usuario ValidacaoCredencial(string email, string senha);
+        CadastroUsuario ValidacaoCredencial(string email, string senha);
 
-        Usuario ObterPorEmail(string email);
+        CadastroUsuario ObterPorEmail(string email);
 
         bool RevokeToken(string email);
     }
