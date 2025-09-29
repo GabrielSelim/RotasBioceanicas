@@ -1,9 +1,11 @@
-﻿using WebApp.Application.Dto.Usuario;
+﻿using WebApp.Application.Dto.UsuarioDto;
 
 namespace WebApp.Application.BusinessInterface
 {
     public interface IUsuarioBusiness
     {
-        void Criar(CriarUsuarioDbo usuario);
+        Task Criar(CriarUsuarioDbo usuario);
+
+        Task Atualizar(long id, AtualizarUsuarioDto usuario);
     }
 }
